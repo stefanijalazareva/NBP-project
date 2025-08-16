@@ -541,6 +541,4 @@ Spike Test: Graceful degradation
 
 ---
 
-**Report Prepared By**: [Your Name]  
-**Date**: [Current Date]  
 **Version**: 1.0
