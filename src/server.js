@@ -4,7 +4,13 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
+const { connectDB } = require('./config/database');
+
+// Import routes
+const healthRoutes = require('./routes/health');
+const ingestRoutes = require('./routes/ingest');
+const queriesRoutes = require('./routes/queries');
+const benchmarkRoutes = require('./routes/benchmarks');
 const reviewRoutes = require('./routes/reviews');
 const analyticsRoutes = require('./routes/analytics');
 const performanceRoutes = require('./routes/performance');
@@ -23,19 +29,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use('/health', healthRoutes);
+app.use('/ingest', ingestRoutes);
+app.use('/queries', queriesRoutes);
+app.use('/benchmarks', benchmarkRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/v1/performance', performanceRoutes);
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    message: 'IMDB Reviews API is running',
-    timestamp: new Date().toISOString(),
-    version: '1.0.0'
-  });
-});
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -69,7 +69,7 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 API Documentation: http://localhost:${PORT}`);
-  console.log(`🏥 Health Check: http://localhost:${PORT}/health`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`API Documentation: http://localhost:${PORT}`);
+  console.log(`Health Check: http://localhost:${PORT}/health`);
 });

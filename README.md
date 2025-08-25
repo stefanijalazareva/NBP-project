@@ -2,7 +2,7 @@
 
 A comprehensive REST API for analyzing IMDB user reviews using MongoDB as a document-based NoSQL database. This project demonstrates advanced querying techniques, data aggregation, and performance optimization for unstructured data.
 
-## 🎯 Project Overview
+## Project Overview
 
 This project provides a complete solution for storing, querying, and analyzing IMDB user reviews data. It includes:
 
@@ -13,7 +13,7 @@ This project provides a complete solution for storing, querying, and analyzing I
 - **Performance testing** and optimization
 - **Docker containerization** for easy deployment
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -28,7 +28,7 @@ This project provides a complete solution for storing, querying, and analyzing I
                        └─────────────────┘
 ```
 
-## 🚀 Features
+## Features
 
 ### Data Management
 - **Raw data import** from CSV with data cleaning and validation
@@ -51,14 +51,14 @@ This project provides a complete solution for storing, querying, and analyzing I
 - **Review length** analysis
 - **Sentiment analysis** support (if data available)
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Node.js (v16 or higher)
 - Docker and Docker Compose
 - MongoDB (provided via Docker)
 - Git
 
-## 🛠️ Installation
+## Installation
 
 ### 1. Clone the Repository
 
@@ -129,7 +129,7 @@ npm run seed
 npm run seed-ibm
 ```
 
-## 🐳 Running with Docker
+## Running with Docker
 
 ### Quick Start with Docker Compose
 
@@ -164,7 +164,7 @@ docker run -d --name imdb-api \
   imdb-api
 ```
 
-## 🚀 Running Locally
+## Running Locally
 
 ### 1. Start MongoDB
 
@@ -197,7 +197,7 @@ npm start
 
 The API will be available at `http://localhost:3000`
 
-## 📚 API Documentation
+## API Documentation
 
 ### Base URL
 ```
@@ -218,7 +218,7 @@ All API responses follow this format:
 }
 ```
 
-## 🔍 API Endpoints
+## API Endpoints
 
 ### Health Check
 ```http
@@ -351,7 +351,7 @@ GET /api/v1/performance/database-stats
 GET /api/v1/performance/comprehensive-test
 ```
 
-## 📖 Example API Requests
+## Example API Requests
 
 ### Using curl
 
@@ -400,7 +400,7 @@ curl -X GET "http://localhost:3000/api/v1/performance/test-simple"
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Run Performance Tests
 
@@ -419,7 +419,7 @@ node src/scripts/performance-test.js
 3. Run performance tests: `npm test`
 4. Check the console output for detailed results
 
-## 📊 Data Schema
+## Data Schema
 
 ### Review Document
 ```json
@@ -487,7 +487,7 @@ node src/scripts/performance-test.js
 }
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -521,7 +521,7 @@ The following indexes are automatically created for optimal performance:
 - `review_count` (sorting)
 - `average_rating` (sorting)
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 ### Query Optimization Strategies
 
@@ -538,7 +538,7 @@ The following indexes are automatically created for optimal performance:
 - Comprehensive performance test suite
 - Comparison of different indexing strategies
 
-## 🚀 Deployment
+## Deployment
 
 ### Production Deployment
 
@@ -577,7 +577,7 @@ server {
 }
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature-name`
@@ -585,11 +585,11 @@ server {
 4. Push to the branch: `git push origin feature-name`
 5. Submit a pull request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## Support
 
 For support and questions:
 
@@ -597,7 +597,7 @@ For support and questions:
 2. Create a new issue with detailed description
 3. Contact the development team
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [MongoDB Documentation](https://docs.mongodb.com/)
 - [Express.js Documentation](https://expressjs.com/)

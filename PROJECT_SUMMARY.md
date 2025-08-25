@@ -9,9 +9,10 @@ This project implements a complete **MongoDB-based movie reviews API** using you
 ### Technology Stack
 - **Backend**: Node.js + Express.js
 - **Database**: MongoDB (NoSQL, Document-based)
-- **ODM**: Mongoose
+- **ODM**: Mongoose for schema modeling and validation
 - **Containerization**: Docker + Docker Compose
 - **Data Processing**: CSV parsing, JSON metadata handling
+- **Performance Testing**: Custom benchmarking suite
 
 ### Project Structure
 ```
@@ -20,40 +21,76 @@ NBP-project/
 │   ├── config/
 │   │   └── database.js          # MongoDB connection & indexing
 │   ├── models/
-│   │   ├── Review.js            # Individual review schema
-│   │   ├── Movie.js             # Aggregated movie data
-│   │   └── User.js              # Aggregated user data
+│   │   ├── Review.js            # Base review schema
+│   │   ├── ReviewA.js           # Model A - embedded documents
+│   │   ├── ReviewB.js           # Model B - referenced documents
+│   │   ├── Movie.js             # Base movie schema
+│   │   ├── MovieB.js            # Model B movie schema
+│   │   ├── User.js              # Base user schema
+│   │   └── UserB.js             # Model B user schema
 │   ├── routes/
 │   │   ├── reviews.js           # Review endpoints (10 routes)
 │   │   ├── analytics.js         # Analytics endpoints (8 routes)
-│   │   └── performance.js       # Performance testing (6 routes)
-│   └── scripts/
-│       ├── seed.js              # Sample data seeding
-│       ├── seed-ibm.js          # IBM data seeding
-│       └── performance-test.js  # Standalone performance tests
+│   │   ├── ingest.js            # Data ingestion endpoints
+│   │   ├── performance.js       # Performance testing (6 routes)
+│   │   ├── health.js            # Health check endpoints
+│   │   ├── benchmarks.js        # Benchmarking endpoints
+│   │   └── queries.js           # Query testing endpoints
+│   ├── scripts/
+│   │   ├── seed.js              # Base seeding script
+│   │   ├── seed-ibm.js          # IBM data seeding
+│   │   ├── ingest-model-a.js    # Model A ingestion script
+│   │   ├── ingest-model-b.js    # Model B ingestion script
+│   │   └── performance-test.js  # Benchmarking suite
+│   └── services/
+│       ├── benchmarkService.js  # Performance testing logic
+│       ├── indexService.js      # Index management
+│       └── queryService.js      # Query execution service
 ├── data/
-│   └── ibm-users-review/        # Your movie data
+│   ├── imdb_user_reviews.csv    # IMDB dataset
+│   └── ibm-users-review/        # IBM movie reviews data
+├── mongo-init/                  # MongoDB initialization scripts
 ├── docker-compose.yml           # Container orchestration
 ├── Dockerfile                   # API container
-└── README.md                    # Complete documentation
+├── env.example                  # Environment configuration template
+├── PROJECT_SUMMARY.md           # Project overview
+├── TECHNICAL_REPORT.md         # Detailed technical documentation
+└── README.md                   # Setup and usage guide
 ```
 
-## 📊 Data Model
+## 📊 Data Models
 
-### Review Collection
+The project implements two different data models to compare their performance and use cases:
+
+### Model A (Embedded Documents)
+This model embeds movie and user information directly in the review documents.
+
+#### ReviewA Collection
 - **47,062 reviews** from 10 movies
-- **40,916 unique users**
-- Fields: user_id, movie_title, rating, review_content, review_date, helpful_votes, total_votes
-- Additional metadata: movie_imdb_rating, genres, directors, stars, year
+- Embedded movie and user information
+- Fields: movie{title, year, genres, directors, stars, imdb_rating}, user{id, name}, rating, review_content, review_date, helpful_votes, total_votes
+- Optimized for read operations and simple queries
 
-### Movie Collection (Aggregated)
+### Model B (Referenced Documents)
+This model uses document references for normalized data representation.
+
+#### ReviewB Collection
+- **47,062 reviews** with references
+- Fields: movie_id, user_id, rating, review_content, review_date, helpful_votes, total_votes
+- References to MovieB and UserB collections
+- Better for data consistency and complex aggregations
+
+#### MovieB Collection
 - **10 movies** with comprehensive statistics
-- Average ratings, review counts, rating distributions
+- Fields: title, year, genres, directors, stars, imdb_rating
+- Aggregated metrics: total_reviews, average_rating, rating_distribution
 - Movie metadata from JSON files
 
-### User Collection (Aggregated)
+#### UserB Collection
 - **40,916 users** with activity statistics
-- Review patterns, helpfulness ratios, activity periods
+- Fields: name, total_reviews, average_rating, rating_distribution
+- Activity metrics: review_frequency, activity_period_days, helpfulness_ratio
+- Review patterns and user engagement data
 
 ## 🚀 API Endpoints
 
